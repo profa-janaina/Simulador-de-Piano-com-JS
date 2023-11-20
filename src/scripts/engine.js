@@ -14,6 +14,7 @@ const playTune = (key) => {
 
     // Adicionando dinâmica sonora. 
     audio.addEventListener('ended', () => delete audios[key]);
+    audio.volume = volumeSlider.value;// lê a posição do slider de volume.
     audio.play();
 
     // Animação das teclas
@@ -44,7 +45,11 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('keyup', (e) => stopTune(e.key));
 
 // Som
-const handleVolume = (e) => {audio.volume = e.target.value};
+// Um pequeno errinho que deixei passar no meu codigo original na hora de dar push no git
+const handleVolume = (e) => {
+    // Modifica o audio de todos da array
+    Object.values(audios).forEach(audio => { audio.volume = e.target.value });
+};
 
 // Escondendo teclas.
 const showHideKeys = () => {pianoKeys.forEach((key) => key.classList.toggle("hide"))};
